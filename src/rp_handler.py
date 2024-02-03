@@ -127,16 +127,16 @@ def generate_image(job):
 
     if starting_image:  # If image_url is provided, run only the refiner pipeline
         init_image = load_image(starting_image).convert("RGB")
-        output = MODELS.refiner(
-            prompt=job_input['prompt'],
-            num_inference_steps=job_input['refiner_inference_steps'],
-            strength=job_input['strength'],
-            image=init_image,
-            generator=generator
-        ).images
-    else:
+    #     output = MODELS.refiner(
+    #         prompt=job_input['prompt'],
+    #         num_inference_steps=job_input['refiner_inference_steps'],
+    #         strength=job_input['strength'],
+    #         image=init_image,
+    #         generator=generator
+    #     ).images
+    # else:
         # Generate latent image using pipe
-        image = MODELS.base(
+        output = MODELS.base(
             prompt=job_input['prompt'],
             negative_prompt=job_input['negative_prompt'],
             height=job_input['height'],
@@ -149,20 +149,20 @@ def generate_image(job):
             generator=generator
         ).images
 
-        try:
-            output = MODELS.refiner(
-                prompt=job_input['prompt'],
-                num_inference_steps=job_input['refiner_inference_steps'],
-                strength=job_input['strength'],
-                image=image,
-                num_images_per_prompt=job_input['num_images'],
-                generator=generator
-            ).images
-        except RuntimeError as err:
-            return {
-                "error": f"RuntimeError: {err}, Stack Trace: {err.__traceback__}",
-                "refresh_worker": True
-            }
+        # try:
+        #     output = MODELS.refiner(
+        #         prompt=job_input['prompt'],
+        #         num_inference_steps=job_input['refiner_inference_steps'],
+        #         strength=job_input['strength'],
+        #         image=image,
+        #         num_images_per_prompt=job_input['num_images'],
+        #         generator=generator
+        #     ).images
+        # except RuntimeError as err:
+        #     return {
+        #         "error": f"RuntimeError: {err}, Stack Trace: {err.__traceback__}",
+        #         "refresh_worker": True
+        #     }
 
     image_urls = _save_and_upload_images(output, job['id'])
 
