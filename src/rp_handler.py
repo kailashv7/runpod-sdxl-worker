@@ -16,6 +16,7 @@ from diffusers import (
     DDIMScheduler,
     EulerDiscreteScheduler,
     DPMSolverMultistepScheduler,
+    DEISMultistepScheduler
 )
 
 import runpod
@@ -98,6 +99,7 @@ def make_scheduler(name, config):
         "DDIM": DDIMScheduler.from_config(config),
         "K_EULER": EulerDiscreteScheduler.from_config(config),
         "DPMSolverMultistep": DPMSolverMultistepScheduler.from_config(config),
+        "DEISMultistepScheduler": DEISMultistepScheduler.from_config(config)
     }[name]
 
 
