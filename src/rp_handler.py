@@ -94,11 +94,11 @@ def _save_and_upload_images(images, job_id):
 
 def make_scheduler(name, config):
     return {
-        # "PNDM": PNDMScheduler.from_config(config),
-        # "KLMS": LMSDiscreteScheduler.from_config(config),
-        # "DDIM": DDIMScheduler.from_config(config),
-        # "K_EULER": EulerDiscreteScheduler.from_config(config),
-        # "DPMSolverMultistep": DPMSolverMultistepScheduler.from_config(config),
+        "PNDM": PNDMScheduler.from_config(config),
+        "KLMS": LMSDiscreteScheduler.from_config(config),
+        "DDIM": DDIMScheduler.from_config(config),
+        "K_EULER": EulerDiscreteScheduler.from_config(config),
+        "DPMSolverMultistep": DPMSolverMultistepScheduler.from_config(config),
         "DEISMultistepScheduler": DEISMultistepScheduler.from_config(config)
     }[name]
 
