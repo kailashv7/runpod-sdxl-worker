@@ -38,7 +38,7 @@ class ModelHandler:
 
     def load_base(self):
         vae = AutoencoderKL.from_pretrained(
-            "madebyollin/sdxl-vae-fp16-fix", torch_dtype=torch.float16)
+            "madebyollin/sdxl-vae-fp16-fix", torch_dtype=torch.float16, variant="fp16")
         base_pipe = StableDiffusionXLPipeline.from_pretrained(
             "Lykon/AAM_XL_AnimeMix",
             torch_dtype=torch.float16, variant="fp16", use_safetensors=True, add_watermarker=False
@@ -49,7 +49,7 @@ class ModelHandler:
 
     def load_refiner(self):
         vae = AutoencoderKL.from_pretrained(
-            "madebyollin/sdxl-vae-fp16-fix", torch_dtype=torch.float16)
+            "madebyollin/sdxl-vae-fp16-fix", torch_dtype=torch.float16, variant="fp16")
         refiner_pipe = StableDiffusionXLImg2ImgPipeline.from_pretrained(
             "Lykon/AAM_XL_AnimeMix", vae=vae,
             torch_dtype=torch.float16, variant="fp16", use_safetensors=True, add_watermarker=False
