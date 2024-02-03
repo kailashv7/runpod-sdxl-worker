@@ -32,14 +32,14 @@ def get_diffusion_pipelines():
 
     pipe = fetch_pretrained_model(StableDiffusionXLPipeline,
                                   "Lykon/AAM_XL_AnimeMix", **common_args)
-    # vae = fetch_pretrained_model(
-    #     AutoencoderKL, "madebyollin/sdxl-vae-fp16-fix", **{"torch_dtype": torch.float16}
-    # )
-    # print("Loaded VAE")
-    # refiner = fetch_pretrained_model(StableDiffusionXLImg2ImgPipeline,
-    #                                  "stabilityai/stable-diffusion-xl-refiner-1.0", **common_args)
+    vae = fetch_pretrained_model(
+        AutoencoderKL, "madebyollin/sdxl-vae-fp16-fix", **{"torch_dtype": torch.float16}
+    )
+    print("Loaded VAE")
+    refiner = fetch_pretrained_model(StableDiffusionXLImg2ImgPipeline,
+                                     "stabilityai/stable-diffusion-xl-refiner-1.0", **common_args)
 
-    return pipe
+    return pipe ,vae, refiner
 
 
 if __name__ == "__main__":
