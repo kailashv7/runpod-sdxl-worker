@@ -50,7 +50,7 @@ class ModelHandler:
         vae = AutoencoderKL.from_pretrained(
             "madebyollin/sdxl-vae-fp16-fix", torch_dtype=torch.float16)
         refiner_pipe = StableDiffusionXLImg2ImgPipeline.from_pretrained(
-            "stabilityai/stable-diffusion-xl-refiner-1.0", vae=vae,
+            "Lykon/AAM_XL_AnimeMix", vae=vae,
             torch_dtype=torch.float16, variant="fp16", use_safetensors=True, add_watermarker=False
         )
         refiner_pipe = refiner_pipe.to("cuda", silence_dtype_warnings=True)
