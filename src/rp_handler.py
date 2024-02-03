@@ -36,34 +36,34 @@ class ModelHandler:
         self.load_models()
 
     def load_base(self):
-        vae = AutoencoderKL.from_pretrained(
-            "madebyollin/sdxl-vae-fp16-fix", torch_dtype=torch.float16)
+        # vae = AutoencoderKL.from_pretrained(
+        #     "madebyollin/sdxl-vae-fp16-fix", torch_dtype=torch.float16)
         base_pipe = StableDiffusionXLPipeline.from_pretrained(
-            "stabilityai/stable-diffusion-xl-base-1.0", vae=vae,
+            "Lykon/AAM_XL_AnimeMix",
             torch_dtype=torch.float16, variant="fp16", use_safetensors=True, add_watermarker=False
         )
         base_pipe = base_pipe.to("cuda", silence_dtype_warnings=True)
         base_pipe.enable_xformers_memory_efficient_attention()
         return base_pipe
 
-    def load_refiner(self):
-        vae = AutoencoderKL.from_pretrained(
-            "madebyollin/sdxl-vae-fp16-fix", torch_dtype=torch.float16)
-        refiner_pipe = StableDiffusionXLImg2ImgPipeline.from_pretrained(
-            "stabilityai/stable-diffusion-xl-refiner-1.0", vae=vae,
-            torch_dtype=torch.float16, variant="fp16", use_safetensors=True, add_watermarker=False
-        )
-        refiner_pipe = refiner_pipe.to("cuda", silence_dtype_warnings=True)
-        refiner_pipe.enable_xformers_memory_efficient_attention()
-        return refiner_pipe
+    # def load_refiner(self):
+    #     vae = AutoencoderKL.from_pretrained(
+    #         "madebyollin/sdxl-vae-fp16-fix", torch_dtype=torch.float16)
+    #     refiner_pipe = StableDiffusionXLImg2ImgPipeline.from_pretrained(
+    #         "stabilityai/stable-diffusion-xl-refiner-1.0", vae=vae,
+    #         torch_dtype=torch.float16, variant="fp16", use_safetensors=True, add_watermarker=False
+    #     )
+    #     refiner_pipe = refiner_pipe.to("cuda", silence_dtype_warnings=True)
+    #     refiner_pipe.enable_xformers_memory_efficient_attention()
+    #     return refiner_pipe
 
     def load_models(self):
         with concurrent.futures.ThreadPoolExecutor() as executor:
             future_base = executor.submit(self.load_base)
-            future_refiner = executor.submit(self.load_refiner)
+            # future_refiner = executor.submit(self.load_refiner)
 
             self.base = future_base.result()
-            self.refiner = future_refiner.result()
+            #self.refiner = future_refiner.result()
 
 
 MODELS = ModelHandler()
