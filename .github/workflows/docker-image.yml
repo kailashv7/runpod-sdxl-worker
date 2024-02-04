@@ -1,0 +1,22 @@
+name: Docker Image CI
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+    - with:
+          username: ${{ secrets.kailashism }}
+          password: ${{ secrets.deathnote7 }}
+          
+    - name: Build the Docker image
+      run: docker buildx build . --file Dockerfile --tag kailashism/a1111workeranime:$(date +%s) --push kailashism/a1111workeranime:$(date +%s)
