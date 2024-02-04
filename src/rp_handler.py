@@ -138,7 +138,7 @@ def generate_image(job):
         ).images
     else:
         # Generate latent image using pipe
-        torch.autocast("cuda")
+       with torch.autocast("cuda"):
         image = MODELS.base(
             prompt=job_input['prompt'],
             negative_prompt=job_input['negative_prompt'],
