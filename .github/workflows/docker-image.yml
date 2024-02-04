@@ -13,9 +13,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v3
     - name: Build and Push the Docker image
-      run: docker build . --file Dockerfile --tag kailashism/a1111workeranime:$(date +%s)
     - uses: docker/build-push-action@v4
       with:
         push: true
