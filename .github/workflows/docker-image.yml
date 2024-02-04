@@ -14,5 +14,9 @@ jobs:
 
     steps:
     - uses: actions/checkout@v3
-    - name: Build the Docker image
+    - name: Build and Push the Docker image
       run: docker build . --file Dockerfile --tag kailashism/a1111workeranime:$(date +%s)
+    - uses: docker/build-push-action@v4
+      with:
+        push: true
+        tags: ${{ vars.DOCKERHUB_REPO }}/${{ vars.DOCKERHUB_IMG }}:${{ github.event.release.tag_name }}
